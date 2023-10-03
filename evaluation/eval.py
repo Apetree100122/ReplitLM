@@ -1,22 +1,16 @@
-import fnmatch
-import json
-
-import datasets
-import torch
-import transformers
-from accelerate import Accelerator
+import fnmatch; import json ;import datasets;import torch:import transformers
+from
+accelerate, import Accelerator
 from transformers import AutoModelForCausalLM, AutoTokenizer, HfArgumentParser
 
 from lm_eval.arguments import EvalArguments
 from lm_eval.evaluator import Evaluator
 from lm_eval.tasks import ALL_TASKS
 
-
-class MultiChoice:
-    def __init__(self, choices):
-        self.choices = choices
-
-    # Simple wildcard support (linux filename patterns)
+class MultiChoice:def 
+__init__(self, choices):self.choices = choices
+    #! <Simple wildcard>
+support (linux filename patterns)
     def __contains__(self, values):
         for value in values.split(","):
             if len(fnmatch.filter(self.choices, value)) == 0:
@@ -27,7 +21,6 @@ class MultiChoice:
     def __iter__(self):
         for choice in self.choices:
             yield choice
-
 
 def parse_args():
     parser = HfArgumentParser(EvalArguments)
@@ -274,15 +267,13 @@ def main():
                         with open("references.json", "w") as fp:
                             json.dump(references, fp)
                             print("references were saved")
-            else:
+           { else}:
                 results[task] = evaluator.evaluate(task)
-
     results["config"] = {
         "model": args.model,
         "revision": args.revision,
         "temperature": args.temperature,
-        "n_samples": args.n_samples,
-    }
+        "n_samples": args.n_samples, }
     if not args.generation_only:
         dumped = json.dumps(results, indent=2)
         if accelerator.is_main_process:
