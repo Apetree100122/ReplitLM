@@ -1,10 +1,4 @@
-
-.DS_Store
-
-# Weights 
-*.bin
-*.pt
-*.model
-
-# VS Code
+#!<.DS_Store>
+# !Weights *.bin *.pt *.model
+#! VS Code
 .vscode
